@@ -4,8 +4,10 @@ ini_set('error_reporting', E_ALL|E_STRICT);
 ini_set('display_errors', true);
 
 $targets = array(
-    'symfony1' => 'http://local.sf1.symfpony-project.org/index.php/test',
-    'Symfony2' => 'http://local.sf2.symfpony-project.org/index.php/test',
+    'symfony1' => 'http://local.sf1.symfpony-project.org/index.php/pony',
+    'Symfony2' => 'http://local.sf2.symfpony-project.org/index.php/pony',
+    'symfony1_cache' => 'http://local.sf1.symfpony-project.org/api_cache.php/pony',
+    'Symfony2_cache' => 'http://local.sf2.symfpony-project.org/symfpony2_cache.php/pony',
 );
 
 function write_siege_file($vars = array())
@@ -76,7 +78,8 @@ foreach ($targets as $name => $path) {
     ));
 
     // restart the server for a fresh environment
-    passthru("apachectl restart");
+    //passthru("apachectl restart");
+    passthru("a2restart");
 
     // prime the cache
     echo "$name: prime the cache\n";
