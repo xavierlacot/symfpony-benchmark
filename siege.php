@@ -4,10 +4,13 @@ ini_set('error_reporting', E_ALL|E_STRICT);
 ini_set('display_errors', true);
 
 $targets = array(
-    'symfony1' => 'http://local.sf1.symfpony-project.org/index.php/pony',
-    'Symfony2' => 'http://local.sf2.symfpony-project.org/index.php/pony',
-    'symfony1_cache' => 'http://local.sf1.symfpony-project.org/api_cache.php/pony',
-    'Symfony2_cache' => 'http://local.sf2.symfpony-project.org/symfpony2_cache.php/pony',
+    'symfony1Dev' => 'http://local.sf1.symfpony-project.org/api_dev.php/pony.json',
+    'symfony1Prod' => 'http://local.sf1.symfpony-project.org/index.php/pony.json',
+    'symfony1Cache' => 'http://local.sf1.symfpony-project.org/api_cache.php/pony.json',
+    'Symfony2Dev' => 'http://local.sf2.symfpony-project.org/symfpony2_dev.php/pony.json',
+    'Symfony2ProdXml' => 'http://local.sf2.symfpony-project.org/index.php/pony.xml',
+    'Symfony2ProdJson' => 'http://local.sf2.symfpony-project.org/index.php/pony.json',
+    'Symfony2Cache' => 'http://local.sf2.symfpony-project.org/symfpony2_cache.php/pony.json',
 );
 
 function write_siege_file($vars = array())
@@ -25,7 +28,7 @@ function write_siege_file($vars = array())
         'chunked'           => 'true',
         'connection'        => 'close',
         'concurrent'        => '10',
-        'time'              => '5s',
+        'time'              => '10s',
         // reps             => '',
         // file             => '',
         // url              => '',
@@ -78,8 +81,7 @@ foreach ($targets as $name => $path) {
     ));
 
     // restart the server for a fresh environment
-    //passthru("apachectl restart");
-    passthru("a2restart");
+    passthru("/etc/init.d/apache2 restart");
 
     // prime the cache
     echo "$name: prime the cache\n";

@@ -65,7 +65,7 @@ foreach ($files as $file) {
     $report[$name]['avg'] = sprintf($format, $avg);
 
     // if this is the symfony1 report, save the comparison value
-    if ($name == 'symfony1') {
+    if ($name == 'symfony1Dev') {
         $cmp = $avg;
     }
 }
